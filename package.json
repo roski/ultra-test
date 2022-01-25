@@ -5,14 +5,15 @@
     "ng": "ng",
     "start": "ng serve",
     "start:strict": "ng serve --configuration=strict",
-    "build": "ng build",
+    "build": "ng build && npm run compodoc",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint src/**/*.ts --max-warnings 2000 --quiet",
     "lint:fix": "eslint src/**/*.ts --fix",
     "lint:conflict-check": "npx eslint --print-config .eslintrc.js | eslint-config-prettier-check",
     "stylelint": "stylelint \"src/**/*.scss\"",
-    "stylelint:conflict-check": "stylelint-config-prettier-check"
+    "stylelint:conflict-check": "stylelint-config-prettier-check",
+    "compodoc": "compodoc -p tsconfig.doc.json -d ./dist/ultra-test/uidock"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +37,7 @@
     "@angular-eslint/template-parser": "^13.0.1",
     "@angular/cli": "~12.0.2",
     "@angular/compiler-cli": "~12.0.2",
+    "@compodoc/compodoc": "^1.1.18",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
