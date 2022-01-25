@@ -57,6 +57,9 @@
               ],
               "outputHashing": "all"
             },
+            "strict": {
+              "tsConfig": "src/strict.tsconfig.app.json"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -73,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ultra-test:build:production"
+            },
+            "strict": {
+              "browserTarget": "ultra-test:build:strict"
             },
             "development": {
               "browserTarget": "ultra-test:build:development"
