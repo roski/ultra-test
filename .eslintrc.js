@@ -74,25 +74,28 @@ module.exports = {
       'error',
       {
         types: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           Object: {
             message: 'Avoid using the `Object` type. Did you mean `object`?'
           },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           Function: {
             message:
               'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'
           },
-          // eslint-disable-next-line id-blacklist
+          // eslint-disable-next-line id-blacklist, @typescript-eslint/naming-convention
           Boolean: {
             message: 'Avoid using the `Boolean` type. Did you mean `boolean`?'
           },
-          // eslint-disable-next-line id-blacklist
+          // eslint-disable-next-line id-blacklist, @typescript-eslint/naming-convention
           Number: {
             message: 'Avoid using the `Number` type. Did you mean `number`?'
           },
-          // eslint-disable-next-line id-blacklist
+          // eslint-disable-next-line id-blacklist, @typescript-eslint/naming-convention
           String: {
             message: 'Avoid using the `String` type. Did you mean `string`?'
           },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
           Symbol: {
             message: 'Avoid using the `Symbol` type. Did you mean `symbol`?'
           }
@@ -126,6 +129,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/prefer-for-of': 'error',
     '@typescript-eslint/prefer-function-type': 'error',
+    '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/triple-slash-reference': [
       'error',
       {
@@ -173,12 +177,7 @@ module.exports = {
     'no-new-wrappers': 'error',
     'no-redeclare': 'error',
     'no-restricted-imports': ['error', 'rxjs/Rx'],
-    'no-shadow': [
-      'error',
-      {
-        hoist: 'all'
-      }
-    ],
+    'no-shadow': 'off',
     'no-throw-literal': 'error',
     'no-undef-init': 'error',
     'no-underscore-dangle': 'off',
