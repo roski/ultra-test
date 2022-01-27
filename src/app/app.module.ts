@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { SharedModule } from '@app-shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components';
+import { environment } from '../environments/environment';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { stateList } from '@app-shared/state';
 
 /**
  * Main application root module
@@ -16,7 +21,12 @@ import { HeaderComponent } from './components';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    NgxsModule.forRoot([...stateList], {
+      developmentMode: !environment.production
+    }),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
+    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
