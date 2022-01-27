@@ -8,7 +8,7 @@ import {
   GiphySearchQueryParams,
   GiphyTerm,
   GiphyTrendingQueryParams
-} from '@app-shared/models/giphy/giphy';
+} from '@app-shared/models';
 import { Observable } from 'rxjs';
 
 /**

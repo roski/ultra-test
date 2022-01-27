@@ -1,0 +1,26 @@
+@import 'src/assets/styles/variables';
+
+.app-header {
+  background-color: transparentize($brand, 0.15);
+  backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+
+  a {
+    color: $link-color;
+    transition: color 0.15s ease-in-out;
+    opacity: 0.5;
+    text-decoration: none;
+
+    &.menu-item {
+      margin-left: 1rem;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

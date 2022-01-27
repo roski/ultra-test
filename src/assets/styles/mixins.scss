@@ -1,0 +1,11 @@
+@import 'variables';
+
+@mixin shadow() {
+  box-shadow: 0 7px 14px 0 rgba($dark-grey, 0.1),
+    0 3px 6px 0 rgba($dark-grey, 0.1);
+  box-shadow: 0 7px 14px 0 rgba($dark-grey, 0.1),
+    0 3px 6px 0 rgba($dark-grey, 0.1);
+  box-shadow: 0 7px 14px 0 rgba($dark-grey, 0.1),
+    0 3px 6px 0 rgba($dark-grey, 0.1);
+  border: 1px solid transparentize($dark-grey, 0.85);
+}
