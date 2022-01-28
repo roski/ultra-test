@@ -7,19 +7,26 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '@app-core/core.module';
-import { DotsLoadingComponent } from '@app-shared/components';
+import { DotsLoadingComponent, GifComponent } from '@app-shared/components';
+import { GiphyRenditionPipe } from '@app-shared/pipes';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 /** shared ngb modules */
-const sharedModules = [RouterModule, CommonModule, CoreModule];
+const sharedModules = [
+  RouterModule,
+  CommonModule,
+  CoreModule,
+  NgxMasonryModule
+];
 
 /** shared components */
-const sharedComponents: any[] = [DotsLoadingComponent];
+const sharedComponents: any[] = [DotsLoadingComponent, GifComponent];
 
 /** shared directives */
 const sharedDirectives: any[] = [];
 
 /** shared pipes */
-const sharedPipes: any[] = [];
+const sharedPipes: any[] = [GiphyRenditionPipe];
 
 /**
  * Shared  module

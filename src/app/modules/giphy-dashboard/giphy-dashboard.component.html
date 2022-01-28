@@ -1,8 +1,14 @@
-<div class="row" *ngIf="trendingGifs$ | async; else loader">
-  <div *ngFor="let gif of trendingGifs$ | async; trackBy: trackById">
-    {{ gif.title }}
-  </div>
-</div>
+<ng-container *ngIf="trendingGifs$ | async; else loader">
+  <ngx-masonry class="row mt-4">
+    <div
+      ngxMasonryItem
+      *ngFor="let gif of trendingGifs$ | async; trackBy: trackById"
+      class="col-sm-6 col-lg-4 col-4"
+    >
+      <app-gif [gif]="gif"></app-gif>
+    </div>
+  </ngx-masonry>
+</ng-container>
 
 <ng-template #loader>
   <div class="row">

@@ -11,6 +11,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { stateList } from '@app-shared/state';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * Main application root module
@@ -19,6 +20,7 @@ import { stateList } from '@app-shared/state';
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule.forRoot(),
