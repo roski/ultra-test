@@ -10,13 +10,16 @@ import { CoreModule } from '@app-core/core.module';
 import { DotsLoadingComponent, GifComponent } from '@app-shared/components';
 import { GiphyRenditionPipe } from '@app-shared/pipes';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /** shared ngb modules */
 const sharedModules = [
   RouterModule,
   CommonModule,
   CoreModule,
-  NgxMasonryModule
+  NgxMasonryModule,
+  FormsModule,
+  ReactiveFormsModule
 ];
 
 /** shared components */

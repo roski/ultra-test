@@ -1,0 +1,7 @@
+﻿@import 'src/assets/styles/variables';
+
+.form-control {
+  &:focus {
+    box-shadow: 0 0 0 0.25rem transparentize($brand, 0.75);
+  }
+}

@@ -25,7 +25,7 @@ export class GiphyDashboardComponent extends Destroyer implements OnInit {
    *
    * @param store the NgXs store service injection
    */
-  constructor(private readonly store: Store) {
+  constructor(protected readonly store: Store) {
     super();
   }
 

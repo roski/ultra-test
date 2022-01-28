@@ -9,3 +9,11 @@ export class GetGiphyTrending {
     'Get Trending gifs'
   );
 }
+
+/** search gifs */
+export class SearchGiphyGifs {
+  static readonly type = StateUtils.buildStateType(
+    GIPHY_STATE_KEY,
+    'Search gifs'
+  );
+}

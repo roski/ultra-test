@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <div class="input-group input-group-lg mt-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search all the GIFs"
+      aria-label="Search all the GIFs"
+      aria-describedby="search-button"
+      (keyup.enter)="searchGifs()"
+      [formControlName]="formControlName.search"
+    />
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      id="search-button"
+      (click)="searchGifs()"
+    >
+      Search
+    </button>
+  </div>
+</form>
