@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import {
   DEFAULT_GIPHY_PAGINATION,
   DEFAULT_GIPHY_PAGINATION_LIMIT,
-  GiphyGif,
   GiphyStateModel
 } from '@app-shared/models';
 import { GetGiphyTrending } from '@app-shared/state/giphy/giphy.actions';
 import { GiphyService } from '@app-shared/services';
+import { IGif } from '@giphy/js-types';
 
 /**
  *  this state is used for cache and control data from giphy
@@ -36,12 +36,12 @@ export class GiphyState {
   constructor(private readonly giphyService: GiphyService) {}
 
   @Selector()
-  static getTrending(state: GiphyStateModel): null | GiphyGif[] {
+  static getTrending(state: GiphyStateModel): null | IGif[] {
     return state.trending;
   }
 
   @Selector()
-  static getGifs(state: GiphyStateModel): null | GiphyGif[] {
+  static getGifs(state: GiphyStateModel): null | IGif[] {
     return state.gifs;
   }
 

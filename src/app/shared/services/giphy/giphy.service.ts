@@ -3,7 +3,6 @@ import { ApiUtilsService } from '@app-shared/services';
 import { HttpClient } from '@angular/common/http';
 import {
   GiphyAutocompleteQueryParams,
-  GiphyGif,
   GiphyPaginationQueryParams,
   GiphyResponse,
   GiphySearchQueryParams,
@@ -11,6 +10,7 @@ import {
   GiphyTrendingQueryParams
 } from '@app-shared/models';
 import { Observable } from 'rxjs';
+import { IGif } from '@giphy/js-types';
 
 /**
  *  Service for communication with Giphy.com API
@@ -60,9 +60,9 @@ export class GiphyService {
    */
   getTrendingGifs(
     queryParams: GiphyTrendingQueryParams
-  ): Observable<GiphyResponse<GiphyGif>> {
+  ): Observable<GiphyResponse<IGif>> {
     const params = this.api.buildQueryParams(queryParams);
-    return this.http.get<GiphyResponse<GiphyGif>>(
+    return this.http.get<GiphyResponse<IGif>>(
       this.api.getGiphyBackendUrl(`${this.gifsActionUrl}/trending`),
       { params }
     );
@@ -76,9 +76,9 @@ export class GiphyService {
    */
   searchGifs(
     queryParams: GiphySearchQueryParams
-  ): Observable<GiphyResponse<GiphyGif>> {
+  ): Observable<GiphyResponse<IGif>> {
     const params = this.api.buildQueryParams(queryParams);
-    return this.http.get<GiphyResponse<GiphyGif>>(
+    return this.http.get<GiphyResponse<IGif>>(
       this.api.getGiphyBackendUrl(`${this.gifsActionUrl}/search`),
       { params }
     );
