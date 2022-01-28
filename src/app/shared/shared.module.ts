@@ -7,12 +7,13 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '@app-core/core.module';
+import { DotsLoadingComponent } from '@app-shared/components';
 
 /** shared ngb modules */
 const sharedModules = [RouterModule, CommonModule, CoreModule];
 
 /** shared components */
-const sharedComponents: any[] = [];
+const sharedComponents: any[] = [DotsLoadingComponent];
 
 /** shared directives */
 const sharedDirectives: any[] = [];

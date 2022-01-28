@@ -171,3 +171,19 @@ export interface GiphyResponse<T> {
   pagination?: GiphyPagination;
   meta: GiphyMeta;
 }
+
+export interface GiphyStateModel {
+  gifs: null | GiphyGif[];
+  gifsPagination: GiphyPagination;
+  trending: null | GiphyGif[];
+  trendingPagination: GiphyPagination;
+}
+
+export const DEFAULT_GIPHY_PAGINATION: GiphyPagination = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  total_count: 0,
+  count: 0,
+  offset: 0
+};
+
+export const DEFAULT_GIPHY_PAGINATION_LIMIT = 9;

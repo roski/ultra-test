@@ -1,1 +1,3 @@
-export const stateList = [];
+import { GiphyState } from './giphy';
+
+export const stateList = [GiphyState];

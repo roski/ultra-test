@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {
   GiphyAutocompleteQueryParams,
   GiphyGif,
+  GiphyPaginationQueryParams,
   GiphyResponse,
   GiphySearchQueryParams,
   GiphyTerm,
@@ -30,6 +31,26 @@ export class GiphyService {
    * @param http {HttpClient} the http service injection
    */
   constructor(private api: ApiUtilsService, private http: HttpClient) {}
+
+  /**
+   * Convert ui pagination to Giphs pagination query params
+   *
+   * @param limit {number} page limit
+   * @param page {number} current page
+   * @param isPageable {boolean} is request pageable
+   * @returns Return Giphy pagination query params {GiphyPaginationQueryParams }
+   */
+  static preparePaginationQueryParams(
+    limit: number = 10,
+    page: number = 1,
+    isPageable: boolean = true
+  ): GiphyPaginationQueryParams {
+    const pagination: GiphyPaginationQueryParams = { limit };
+    if (isPageable) {
+      pagination.offset = (page - 1) * limit;
+    }
+    return pagination;
+  }
 
   /**
    * Get trending gifs

@@ -1,0 +1,49 @@
+@import 'src/assets/styles/variables';
+
+.dots-loading {
+  text-align: center;
+  z-index: 5;
+  display: flex;
+
+  &-dot {
+    width: 8px;
+    height: 8px;
+    position: relative;
+    opacity: 0;
+    margin-right: 4px;
+    margin-left: 4px;
+    border-radius: 15px;
+    background-color: $dark-grey;
+    animation: show-hid-dot 1.5s ease-in-out infinite;
+
+    &_one {
+      animation-delay: 0.2s;
+    }
+
+    &_two {
+      animation-delay: 0.4s;
+    }
+
+    &_three {
+      animation-delay: 0.6s;
+    }
+  }
+}
+
+@keyframes show-hid-dot {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

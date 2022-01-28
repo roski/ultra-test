@@ -1,1 +1,13 @@
-<p>giphy-dashboard works!</p>
+<div class="row" *ngIf="trendingGifs$ | async; else loader">
+  <div *ngFor="let gif of trendingGifs$ | async; trackBy: trackById">
+    {{ gif.title }}
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="row">
+    <div class="d-flex justify-content-center align-items-center mh-100">
+      <app-dots-loading></app-dots-loading>
+    </div>
+  </div>
+</ng-template>
