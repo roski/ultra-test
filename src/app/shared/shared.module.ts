@@ -11,6 +11,7 @@ import { DotsLoadingComponent, GifComponent } from '@app-shared/components';
 import { GiphyRenditionPipe } from '@app-shared/pipes';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 /** shared ngb modules */
 const sharedModules = [
@@ -19,7 +20,8 @@ const sharedModules = [
   CoreModule,
   NgxMasonryModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  NgbPaginationModule
 ];
 
 /** shared components */

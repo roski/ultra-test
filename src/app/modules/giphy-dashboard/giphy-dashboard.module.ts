@@ -5,13 +5,17 @@ import { GiphyDashboardRoutingModule } from './giphy-dashboard-routing.module';
 import { SharedModule } from '@app-shared/shared.module';
 import { GiphySearchComponent } from './giphy-search';
 import { GiphyTagsComponent } from './giphy-tags';
+import { GiphyPaginationComponent } from './giphy-pagination';
+import { GiphyGridComponent } from './giphy-grid';
 
 /** Giphy dashboard module */
 @NgModule({
   declarations: [
     GiphyDashboardComponent,
     GiphySearchComponent,
-    GiphyTagsComponent
+    GiphyTagsComponent,
+    GiphyPaginationComponent,
+    GiphyGridComponent
   ],
   imports: [GiphyDashboardRoutingModule, SharedModule]
 })

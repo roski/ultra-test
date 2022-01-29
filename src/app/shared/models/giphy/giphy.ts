@@ -72,9 +72,10 @@ export interface GiphyResponse<T> {
 }
 
 export interface GiphyStateModel {
-  gifs: null | IGif[];
+  gifs: { [key: number]: IGif[] };
   gifsPagination: GiphyPagination;
   trending: null | IGif[];
+  searchQuery: null | string;
   trendingPagination: GiphyPagination;
   tags: null | GiphyTerm[];
 }

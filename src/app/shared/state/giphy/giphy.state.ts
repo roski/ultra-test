@@ -6,6 +6,7 @@ import {
   DEFAULT_GIPHY_PAGINATION_LIMIT,
   DEFAULT_GIPHY_TAG_PAGINATION_LIMIT,
   GiphyContentRating,
+  GiphyPagination,
   GiphyStateModel,
   GiphyTerm
 } from '@app-shared/models';
@@ -16,6 +17,7 @@ import {
 } from '@app-shared/state/giphy/giphy.actions';
 import { GiphyService } from '@app-shared/services';
 import { IGif } from '@giphy/js-types';
+import { empty } from 'rxjs/internal/Observer';
 
 /**
  *  this state is used for cache and control data from giphy
@@ -26,7 +28,8 @@ const defaultGiphyState = (): GiphyStateModel => ({
   trending: null,
   trendingPagination: { ...DEFAULT_GIPHY_PAGINATION },
   gifsPagination: { ...DEFAULT_GIPHY_PAGINATION },
-  gifs: null,
+  gifs: {},
+  searchQuery: null,
   tags: null
 });
 
@@ -43,16 +46,25 @@ export class GiphyState {
    */
   constructor(private readonly giphyService: GiphyService) {}
 
+  /** selector of trending gif */
   @Selector()
   static getTrending(state: GiphyStateModel): null | IGif[] {
     return state.trending;
   }
 
+  /** selector of search gif */
   @Selector()
-  static getGifs(state: GiphyStateModel): null | IGif[] {
+  static getGifs(state: GiphyStateModel): { [key: string]: IGif[] } {
     return state.gifs;
   }
 
+  /** selector of search gif pagination */
+  @Selector()
+  static getGifsPagination(state: GiphyStateModel): GiphyPagination {
+    return state.gifsPagination;
+  }
+
+  /** selector of search tags */
   @Selector()
   static getTags(state: GiphyStateModel): null | GiphyTerm[] {
     return state.tags;
@@ -85,36 +97,48 @@ export class GiphyState {
   /** Search GIFs*/
   @Action(SearchGiphyGifs)
   searchGifs(
-    { patchState, getState }: StateContext<GiphyStateModel>,
+    { patchState, getState, dispatch }: StateContext<GiphyStateModel>,
     { searchQuery, page }: SearchGiphyGifs
   ) {
-    return this.giphyService
-      .searchGifs({
-        q: searchQuery || '',
-        ...GiphyService.preparePaginationQueryParams(
-          DEFAULT_GIPHY_PAGINATION_LIMIT,
-          page,
-          true
-        ),
-        rating: GiphyContentRating.g,
-        lang: 'en'
-      })
-      .pipe(
-        tap((res) => {
-          const cachedGif = getState().gifs;
-          patchState({
-            gifs:
-              cachedGif && page !== 1 ? [...cachedGif, ...res.data] : res.data,
-            gifsPagination: res.pagination
-          });
+    const searchChanged = getState().searchQuery !== searchQuery;
+    const pageExist = !!getState().gifs[page];
+    if (searchChanged || !pageExist) {
+      patchState({
+        searchQuery: searchQuery || null
+      });
+      return this.giphyService
+        .searchGifs({
+          q: searchQuery || '',
+          ...GiphyService.preparePaginationQueryParams(
+            DEFAULT_GIPHY_PAGINATION_LIMIT,
+            page,
+            true
+          ),
+          rating: GiphyContentRating.g,
+          lang: 'en'
         })
-      );
+        .pipe(
+          tap((res) => {
+            if (searchChanged) {
+              dispatch(new SearchGiphyGifsAutocomplete(searchQuery));
+            }
+            patchState({
+              gifs: searchChanged
+                ? { [page]: res.data }
+                : { ...getState().gifs, [page]: res.data },
+              gifsPagination: res.pagination
+            });
+          })
+        );
+    } else {
+      return empty;
+    }
   }
 
   /** Get tags autocomplete */
   @Action(SearchGiphyGifsAutocomplete)
   getAutocompleteGifs(
-    { patchState }: StateContext<GiphyStateModel>,
+    { patchState, getState }: StateContext<GiphyStateModel>,
     { searchQuery }: SearchGiphyGifsAutocomplete
   ) {
     return this.giphyService

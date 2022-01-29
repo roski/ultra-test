@@ -2,31 +2,8 @@
 
 <app-giphy-tags></app-giphy-tags>
 
-<ng-container
-  *ngIf="
-    (gifs$ | async)?.length || (trendingGifs$ | async)?.length;
-    else loader
-  "
->
-  <ngx-masonry class="row mt-2" [ordered]="true">
-    <div
-      ngxMasonryItem
-      *ngFor="
-        let gif of (gifs$ | async) || (trendingGifs$ | async);
-        trackBy: trackById
-      "
-      class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4"
-      [prepend]="true"
-    >
-      <app-gif [gif]="gif"></app-gif>
-    </div>
-  </ngx-masonry>
-</ng-container>
+<app-giphy-grid></app-giphy-grid>
 
-<ng-template #loader>
-  <div class="row">
-    <div class="d-flex justify-content-center align-items-center mh-100">
-      <app-dots-loading></app-dots-loading>
-    </div>
-  </div>
-</ng-template>
+<app-giphy-pagination
+  *ngIf="(pagination$ | async)?.total_count"
+></app-giphy-pagination>

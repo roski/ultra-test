@@ -1,0 +1,7 @@
+<ngb-pagination
+  [page]="curPage"
+  [pageSize]="(curPagination$ | async)!.count"
+  [maxSize]="(curPagination$ | async)!.count"
+  (pageChange)="pageChanged($event)"
+  [collectionSize]="(curPagination$ | async)!.total_count"
+></ngb-pagination>

@@ -38,5 +38,5 @@ export class SearchGiphyGifs {
    * @param searchQuery {string} tags search query
    * @param page {number} number of page
    */
-  constructor(public searchQuery: string | null, public page: number = 1) {}
+  constructor(public searchQuery: string | null, public page: number) {}
 }

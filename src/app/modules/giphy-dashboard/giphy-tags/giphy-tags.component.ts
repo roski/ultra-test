@@ -3,10 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Destroyer } from '@app-shared/models/destroyer';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
-import {
-  SearchGiphyGifsAutocomplete,
-  GiphyState
-} from '@app-shared/state/giphy';
+import { GiphyState } from '@app-shared/state/giphy';
 import { Observable } from 'rxjs';
 import { GiphyTerm } from '@app-shared/models';
 import { Navigate } from '@ngxs/router-plugin';
@@ -75,17 +72,6 @@ export class GiphyTagsComponent extends Destroyer implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((params) => {
         this.searchQuery = params.get('s');
-        this.getSearchTags(this.searchQuery);
       });
-  }
-
-  /**
-   * search tags
-   *
-   * @param query {string} tags search query
-   * @returns nothing
-   */
-  private getSearchTags(query: string | null): void {
-    this.store.dispatch(new SearchGiphyGifsAutocomplete(query));
   }
 }

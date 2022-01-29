@@ -1,0 +1,33 @@
+@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
+
+:host {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  ngb-pagination::ng-deep {
+    .pagination {
+      .page-item {
+        &.active {
+          .page-link {
+            color: white;
+            background-color: $brand;
+            border-color: $brand;
+            @include box-shadow;
+          }
+        }
+
+        &.disabled {
+          .page-link {
+            color: transparentize($dark-grey, 0.5);
+          }
+        }
+
+        .page-link {
+          color: $brand;
+        }
+      }
+    }
+  }
+}

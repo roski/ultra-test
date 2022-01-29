@@ -1,7 +1,8 @@
 ﻿@import 'src/assets/styles/variables';
+@import 'src/assets/styles/mixins';
 
 .form-control {
   &:focus {
-    box-shadow: 0 0 0 0.25rem transparentize($brand, 0.75);
+    @include box-shadow;
   }
 }
