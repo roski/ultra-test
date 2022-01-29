@@ -4,13 +4,14 @@ import { Destroyer } from '@app-shared/models/destroyer';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import {
-  AutocompleteSearchGiphyGifs,
+  SearchGiphyGifsAutocomplete,
   GiphyState
 } from '@app-shared/state/giphy';
 import { Observable } from 'rxjs';
 import { GiphyTerm } from '@app-shared/models';
 import { Navigate } from '@ngxs/router-plugin';
 
+/** component with list of autocomplete giphy tags */
 @Component({
   selector: 'app-giphy-tags',
   templateUrl: './giphy-tags.component.html',
@@ -85,6 +86,6 @@ export class GiphyTagsComponent extends Destroyer implements OnInit {
    * @returns nothing
    */
   private getSearchTags(query: string | null): void {
-    this.store.dispatch(new AutocompleteSearchGiphyGifs(query));
+    this.store.dispatch(new SearchGiphyGifsAutocomplete(query));
   }
 }

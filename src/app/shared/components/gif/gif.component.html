@@ -1,4 +1,4 @@
-<div class="app-giff" #wrapper>
+<div class="app-giff" #wrapper *ngIf="gif">
   <picture class="cursor-pointer" *ngIf="gif">
     <source
       type="image/webp"
@@ -6,8 +6,7 @@
     />
     <img
       class="rounded-8"
-      [alt]=""
-      [width]="wrapper.offsetWidth"
+      [alt]="gif.title"
       [src]="(gif | giphyRendition).url"
     />
   </picture>

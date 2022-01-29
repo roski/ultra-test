@@ -10,8 +10,8 @@ export class GetGiphyTrending {
   );
 }
 
-/** search gifs */
-export class AutocompleteSearchGiphyGifs {
+/** search gifs autocomplete*/
+export class SearchGiphyGifsAutocomplete {
   static readonly type = StateUtils.buildStateType(
     GIPHY_STATE_KEY,
     'Autocomplete search gifs'
@@ -23,4 +23,20 @@ export class AutocompleteSearchGiphyGifs {
    * @param searchQuery {string} tags search query
    */
   constructor(public searchQuery: string | null) {}
+}
+
+/** search gifs */
+export class SearchGiphyGifs {
+  static readonly type = StateUtils.buildStateType(
+    GIPHY_STATE_KEY,
+    'Search gifs'
+  );
+
+  /**
+   * The "constructor"
+   *
+   * @param searchQuery {string} tags search query
+   * @param page {number} number of page
+   */
+  constructor(public searchQuery: string | null, public page: number = 1) {}
 }

@@ -6,14 +6,14 @@
       placeholder="Search all the GIFs"
       aria-label="Search all the GIFs"
       aria-describedby="search-button"
-      (keyup.enter)="searchGifs()"
+      (keyup.enter)="processSearch()"
       [formControlName]="formControlName.search"
     />
     <button
       class="btn btn-outline-secondary"
       type="button"
       id="search-button"
-      (click)="searchGifs()"
+      (click)="processSearch()"
     >
       Search
     </button>

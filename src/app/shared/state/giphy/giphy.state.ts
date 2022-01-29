@@ -5,12 +5,14 @@ import {
   DEFAULT_GIPHY_PAGINATION,
   DEFAULT_GIPHY_PAGINATION_LIMIT,
   DEFAULT_GIPHY_TAG_PAGINATION_LIMIT,
+  GiphyContentRating,
   GiphyStateModel,
   GiphyTerm
 } from '@app-shared/models';
 import {
-  AutocompleteSearchGiphyGifs,
-  GetGiphyTrending
+  GetGiphyTrending,
+  SearchGiphyGifs,
+  SearchGiphyGifsAutocomplete
 } from '@app-shared/state/giphy/giphy.actions';
 import { GiphyService } from '@app-shared/services';
 import { IGif } from '@giphy/js-types';
@@ -80,11 +82,40 @@ export class GiphyState {
       );
   }
 
+  /** Search GIFs*/
+  @Action(SearchGiphyGifs)
+  searchGifs(
+    { patchState, getState }: StateContext<GiphyStateModel>,
+    { searchQuery, page }: SearchGiphyGifs
+  ) {
+    return this.giphyService
+      .searchGifs({
+        q: searchQuery || '',
+        ...GiphyService.preparePaginationQueryParams(
+          DEFAULT_GIPHY_PAGINATION_LIMIT,
+          page,
+          true
+        ),
+        rating: GiphyContentRating.g,
+        lang: 'en'
+      })
+      .pipe(
+        tap((res) => {
+          const cachedGif = getState().gifs;
+          patchState({
+            gifs:
+              cachedGif && page !== 1 ? [...cachedGif, ...res.data] : res.data,
+            gifsPagination: res.pagination
+          });
+        })
+      );
+  }
+
   /** Get tags autocomplete */
-  @Action(AutocompleteSearchGiphyGifs)
+  @Action(SearchGiphyGifsAutocomplete)
   getAutocompleteGifs(
     { patchState }: StateContext<GiphyStateModel>,
-    { searchQuery }: AutocompleteSearchGiphyGifs
+    { searchQuery }: SearchGiphyGifsAutocomplete
   ) {
     return this.giphyService
       .searchGifsAutocomplete({

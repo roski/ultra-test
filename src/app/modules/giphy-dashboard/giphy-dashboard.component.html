@@ -2,12 +2,21 @@
 
 <app-giphy-tags></app-giphy-tags>
 
-<ng-container *ngIf="trendingGifs$ | async; else loader">
-  <ngx-masonry class="row mt-2">
+<ng-container
+  *ngIf="
+    (gifs$ | async)?.length || (trendingGifs$ | async)?.length;
+    else loader
+  "
+>
+  <ngx-masonry class="row mt-2" [ordered]="true">
     <div
       ngxMasonryItem
-      *ngFor="let gif of trendingGifs$ | async; trackBy: trackById"
-      class="col-sm-6 col-lg-4 col-4"
+      *ngFor="
+        let gif of (gifs$ | async) || (trendingGifs$ | async);
+        trackBy: trackById
+      "
+      class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4"
+      [prepend]="true"
     >
       <app-gif [gif]="gif"></app-gif>
     </div>

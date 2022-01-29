@@ -10,6 +10,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { ActivatedRoute } from '@angular/router';
 import { Destroyer } from '@app-shared/models/destroyer';
 import { takeUntil } from 'rxjs/operators';
+import { SearchGiphyGifs } from '@app-shared/state/giphy';
 
 enum FormControlName {
   search = 'search'
@@ -63,15 +64,30 @@ export class GiphySearchComponent extends Destroyer implements OnInit {
   }
 
   /**
-   * Search gifs
+   * Process search GIFs
    *
    * @return nothing
    */
-  searchGifs(): void {
+  processSearch(): void {
     const searchQuery: string | null = this.searchController?.value;
+    this.addRouteQueryParams(searchQuery);
+    this.searchGifs(searchQuery);
+  }
+
+  /**
+   * Add route search query params
+   *
+   * @param searchQuery {string | null} search query
+   * @return nothing
+   */
+  private addRouteQueryParams(searchQuery: string | null): void {
     this.store.dispatch(
       new Navigate([], searchQuery ? { s: searchQuery } : {})
     );
+  }
+
+  private searchGifs(searchQuery: string | null): void {
+    this.store.dispatch(new SearchGiphyGifs(searchQuery));
   }
 
   /**
@@ -86,6 +102,7 @@ export class GiphySearchComponent extends Destroyer implements OnInit {
         const searchQuery = params.get('s');
         if (searchQuery) {
           this.searchController?.setValue(searchQuery);
+          this.searchGifs(searchQuery);
         }
       });
   }
