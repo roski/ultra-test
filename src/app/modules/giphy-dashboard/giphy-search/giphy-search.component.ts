@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,6 +6,10 @@ import {
   FormGroup
 } from '@angular/forms';
 import { Store } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
+import { ActivatedRoute } from '@angular/router';
+import { Destroyer } from '@app-shared/models/destroyer';
+import { takeUntil } from 'rxjs/operators';
 
 enum FormControlName {
   search = 'search'
@@ -17,7 +21,7 @@ enum FormControlName {
   templateUrl: './giphy-search.component.html',
   styleUrls: ['./giphy-search.component.scss']
 })
-export class GiphySearchComponent {
+export class GiphySearchComponent extends Destroyer implements OnInit {
   /** search form */
   form: FormGroup = this.fb.group({
     [FormControlName.search]: [null]
@@ -28,13 +32,17 @@ export class GiphySearchComponent {
   /**
    * The "constructor"
    *
+   * @param route$ angular active route service
    * @param fb the form builder
    * @param store the NgXs store service injection
    */
   constructor(
+    protected readonly route$: ActivatedRoute,
     protected readonly fb: FormBuilder,
     protected readonly store: Store
-  ) {}
+  ) {
+    super();
+  }
 
   /**
    * Get search form controller
@@ -46,11 +54,39 @@ export class GiphySearchComponent {
   }
 
   /**
+   * ngOnInit lifecycle hook
+   *
+   * @returns nothing
+   */
+  ngOnInit(): void {
+    this.watchSearchQuery();
+  }
+
+  /**
    * Search gifs
    *
    * @return nothing
    */
   searchGifs(): void {
-    console.log(this.searchController?.value);
+    const searchQuery: string | null = this.searchController?.value;
+    this.store.dispatch(
+      new Navigate([], searchQuery ? { s: searchQuery } : {})
+    );
+  }
+
+  /**
+   * Watch when search query changed
+   *
+   * @returns nothing
+   */
+  private watchSearchQuery(): void {
+    this.route$.queryParamMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        const searchQuery = params.get('s');
+        if (searchQuery) {
+          this.searchController?.setValue(searchQuery);
+        }
+      });
   }
 }

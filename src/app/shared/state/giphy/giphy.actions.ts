@@ -11,9 +11,16 @@ export class GetGiphyTrending {
 }
 
 /** search gifs */
-export class SearchGiphyGifs {
+export class AutocompleteSearchGiphyGifs {
   static readonly type = StateUtils.buildStateType(
     GIPHY_STATE_KEY,
-    'Search gifs'
+    'Autocomplete search gifs'
   );
+
+  /**
+   * The "constructor"
+   *
+   * @param searchQuery {string} tags search query
+   */
+  constructor(public searchQuery: string | null) {}
 }

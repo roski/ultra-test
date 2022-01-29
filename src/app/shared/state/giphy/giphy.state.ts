@@ -4,9 +4,14 @@ import { Injectable } from '@angular/core';
 import {
   DEFAULT_GIPHY_PAGINATION,
   DEFAULT_GIPHY_PAGINATION_LIMIT,
-  GiphyStateModel
+  DEFAULT_GIPHY_TAG_PAGINATION_LIMIT,
+  GiphyStateModel,
+  GiphyTerm
 } from '@app-shared/models';
-import { GetGiphyTrending } from '@app-shared/state/giphy/giphy.actions';
+import {
+  AutocompleteSearchGiphyGifs,
+  GetGiphyTrending
+} from '@app-shared/state/giphy/giphy.actions';
 import { GiphyService } from '@app-shared/services';
 import { IGif } from '@giphy/js-types';
 
@@ -19,7 +24,8 @@ const defaultGiphyState = (): GiphyStateModel => ({
   trending: null,
   trendingPagination: { ...DEFAULT_GIPHY_PAGINATION },
   gifsPagination: { ...DEFAULT_GIPHY_PAGINATION },
-  gifs: null
+  gifs: null,
+  tags: null
 });
 
 @State<GiphyStateModel>({
@@ -45,6 +51,11 @@ export class GiphyState {
     return state.gifs;
   }
 
+  @Selector()
+  static getTags(state: GiphyStateModel): null | GiphyTerm[] {
+    return state.tags;
+  }
+
   /** Get trending gifs action */
   @Action(GetGiphyTrending)
   getTrendingGifs({ patchState, getState }: StateContext<GiphyStateModel>) {
@@ -64,6 +75,30 @@ export class GiphyState {
               ? [...prevTrending, ...data.data]
               : data.data,
             trendingPagination: data.pagination
+          });
+        })
+      );
+  }
+
+  /** Get tags autocomplete */
+  @Action(AutocompleteSearchGiphyGifs)
+  getAutocompleteGifs(
+    { patchState }: StateContext<GiphyStateModel>,
+    { searchQuery }: AutocompleteSearchGiphyGifs
+  ) {
+    return this.giphyService
+      .searchGifsAutocomplete({
+        q: searchQuery || '',
+        ...GiphyService.preparePaginationQueryParams(
+          DEFAULT_GIPHY_TAG_PAGINATION_LIMIT,
+          1,
+          true
+        )
+      })
+      .pipe(
+        tap((res) => {
+          patchState({
+            tags: res.data
           });
         })
       );

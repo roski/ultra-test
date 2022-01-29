@@ -1,7 +1,9 @@
 <app-giphy-search></app-giphy-search>
 
+<app-giphy-tags></app-giphy-tags>
+
 <ng-container *ngIf="trendingGifs$ | async; else loader">
-  <ngx-masonry class="row mt-4">
+  <ngx-masonry class="row mt-2">
     <div
       ngxMasonryItem
       *ngFor="let gif of trendingGifs$ | async; trackBy: trackById"

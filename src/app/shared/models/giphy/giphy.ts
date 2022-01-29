@@ -76,6 +76,7 @@ export interface GiphyStateModel {
   gifsPagination: GiphyPagination;
   trending: null | IGif[];
   trendingPagination: GiphyPagination;
+  tags: null | GiphyTerm[];
 }
 
 export const DEFAULT_GIPHY_PAGINATION: GiphyPagination = {
@@ -86,3 +87,4 @@ export const DEFAULT_GIPHY_PAGINATION: GiphyPagination = {
 };
 
 export const DEFAULT_GIPHY_PAGINATION_LIMIT = 9;
+export const DEFAULT_GIPHY_TAG_PAGINATION_LIMIT = 4;
