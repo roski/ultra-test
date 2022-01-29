@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ROUTES_PATHS } from '@app-shared/models';
 import { AboutModule } from './modules/about';
 import { GiphyDashboardModule } from './modules/giphy-dashboard';
+import { CustomPreloadingStrategy } from '@app-core/modules';
 
 /** Application routes */
 const routes: Routes = [
@@ -36,7 +37,11 @@ const routes: Routes = [
  * Main app routes module
  */
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: CustomPreloadingStrategy
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

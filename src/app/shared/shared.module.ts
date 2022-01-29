@@ -12,6 +12,7 @@ import { GiphyRenditionPipe } from '@app-shared/pipes';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { MarkdownModule } from 'ngx-markdown';
 
 /** shared ngb modules */
 const sharedModules = [
@@ -21,7 +22,8 @@ const sharedModules = [
   NgxMasonryModule,
   FormsModule,
   ReactiveFormsModule,
-  NgbPaginationModule
+  NgbPaginationModule,
+  MarkdownModule
 ];
 
 /** shared components */

@@ -13,6 +13,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { stateList } from '@app-shared/state';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { MarkdownModule } from 'ngx-markdown';
 
 /**
  * Main application root module
@@ -30,7 +31,8 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
     }),
     NgxsRouterPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot({ disabled: environment.production }),
-    NgxsReduxDevtoolsPluginModule.forRoot()
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    MarkdownModule.forRoot({ loader: HttpClientModule })
   ],
   providers: [],
   bootstrap: [AppComponent]
